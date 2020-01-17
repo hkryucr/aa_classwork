@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: white;
+}
+
+/* * < body {
+  font-family: inherit;
+} */
+
+body {
+  font-family: "Comic Sans";
+  font-style: normal;
+  line-height: 1.5;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
