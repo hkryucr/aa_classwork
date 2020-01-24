@@ -25,25 +25,20 @@ class SQLObject
   end
 
   def self.all
-    # ...
     data = DBConnection.execute(<<-SQL) 
       SELECT
         *
       FROM
         #{self.table_name}
     SQL
-    
     self.parse_all(data)
-
   end
 
   def self.parse_all(results)
-    # ...
     results.map {|result| self.new(result)}
   end
 
   def self.find(id)
-    # ...
     find_data = DBConnection.execute(<<-SQL, id).first
       SELECT
         *
@@ -52,7 +47,6 @@ class SQLObject
       WHERE
         id = ?
     SQL
-
     return nil if find_data.nil?
     self.new(find_data)
   end
@@ -80,31 +74,46 @@ class SQLObject
   end
 
   def attribute_values
-    # ...
-    self.attributes.values
+    self.class.columns.map { |attr| self.send(attr) }
+
   end
 
   def insert
-    # ...
-    col_names = self.class.columns.join(",")
-    question_marks = (["?"] * self.class.columns.length).join(",")
-    col_values = self.attribute_values
-    # p col_values
-    # p question_marks
-    data = DBConnection.execute(<<-SQL, *col_values) 
+    col_names = self.class.columns.drop(1)
+    question_marks = (["?"] * (col_names.length)).join(",")
+    col_values = self.attribute_values.drop(1)
+    
+    DBConnection.execute(<<-SQL, *col_values) 
       INSERT INTO
-        #{self.class.table_name} #{col_names}
+        #{self.class.table_name} (#{col_names.join(",")})
       VALUES
-        #{question_marks}
+        (#{question_marks})
+    SQL
+
+    self.id = DBConnection.last_insert_row_id
+  end
+
+  def update
+    col_names = self.class.columns.drop(1)
+    col_values = self.attribute_values
+    col_names = col_names.map {|col_name| "#{col_name} = ?"}
+
+    DBConnection.execute(<<-SQL, *col_values.rotate!) 
+      UPDATE
+        #{self.class.table_name} 
+      SET
+        #{col_names.join(",")}
+      WHERE
+        #{self.id} = ?
     SQL
 
   end
 
-  def update
-    # ...
-  end
-
   def save
-    # ...
+    if self.id == nil
+      self.insert
+    else
+      self.update
+    end 
   end
 end
