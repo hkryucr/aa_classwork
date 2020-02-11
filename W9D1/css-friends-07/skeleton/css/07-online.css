@@ -1,0 +1,21 @@
+/* PHASE 7: Online */
+.profile-picture{
+    overflow: hidden;
+}
+
+.online{
+    display: block;
+    position: absolute;
+    text-transform: uppercase;
+    background-color: rgb(35, 182, 35);
+    transform: rotate(-45deg) translateX(-30%)translateY(-20%);
+    color: white;
+    font-size: 13px;
+    box-shadow: 0 1px 0 0 #070;
+    letter-spacing: 3px;
+    padding: 5px 35px;
+}
+
+
+/* Then go bonkers styling it using fancy transform properties like rotate() and translateX(). Pay attention to typography and don't forget to add a tiny box-shadow.
+ */
