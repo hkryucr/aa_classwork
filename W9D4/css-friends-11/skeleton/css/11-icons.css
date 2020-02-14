@@ -1,0 +1,38 @@
+/* PHASE 11: Icons */
+
+[class*="icon-"] {
+  /* background-color: aqua; */
+  overflow: hidden;
+  display: inline-block;
+  background-image: url("../images/sprite.png");
+  background-size: 25px;
+  width: 25px;
+  height: 25px;
+}
+[class*="icon-small-"]{
+  width:
+}
+
+[class*="icon-comment"]:hover {
+  background-position: 0 -25px;
+}
+
+[class*="icon-reblog"] {
+  /* height: 150px; */
+  background-position: 0 -100px;
+}
+
+[class*="icon-reblog"]:hover {
+  /* height: 150px; */
+  background-position: 0 -125px;
+}
+
+[class*="icon-favorite"] {
+  /* height: 150px; */
+  background-position: 0 -50px;
+}
+
+[class*="icon-favorite"]:hover {
+  /* height: 150px; */
+  background-position: 0 -75px;
+}
